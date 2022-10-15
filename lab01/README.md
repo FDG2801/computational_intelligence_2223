@@ -1,4 +1,4 @@
-Author: Francesco Di Gangi, Giuseppe Atanasio, Francesco Sorrentino, Alessio Carachino
+Author: Francesco Di Gangi
 # Understanding the problem: Set Covering
 Given a set of elements {1, 2, …, n} (called the universe) and a collection S of m sets whose union equals the universe, the set cover problem is to identify the smallest sub-collection of S whose union equals the universe. For example, consider the universe U = {1, 2, 3, 4, 5} and the collection of sets S = { {1, 2, 3}, {2, 4}, {3, 4}, {4, 5} }. Clearly the union of S is U. However, we can cover all of the elements with the following, smaller number of sets: { {1, 2, 3}, {4, 5} }. **(wikipedia.org)**
 
@@ -62,13 +62,34 @@ I start initializing a variable cost at zero (I need to sum then all the costs -
 Then I create two variables, covered and solution. Covered will be used to add all the subset with |= (between sets it means union operation). 
 Every time of each set I take the one with the highest "not covered" element / the cost ratio (probably I can avoid since all costs are 1).
 
-Sources: professor's solution, GitHub, StackOverflow, my notes (theory about greedy search)
+**Sources**: professor's solution, GitHub, StackOverflow, my notes (theory about greedy search)
 
 # Second solution proposed: breadth first search
 
 In this search algorithm we start from the tree root and explore all nodes at the present depth, with the prior to move on the nodes that have another next depth level. A tree search don’t remember visited nodes and is exponentially slower, but it is memory efficient. A graph search instead is faster, but memory-blow up. 
-<pre><code>
-
+<pre><code>def set_covering_problem_bf(universe,subsets,costs):
+    cost=0
+    elements=set(e for s in subsets for e in s)
+    if elements!=universe:
+        print("The subsets don't contain the universe.")
+        return None
+    covered=set()
+    solution=[]
+    queue=[]
+    visited=[]
+    while covered!=elements:
+        subset = max(subsets,key=lambda s: len(s-covered))
+        #print(subset, " subset")
+        queue.append(subset)
+        x=queue.pop()
+        if x not in visited:
+            visited.append(subset)
+            solution.append(subset)
+            cost+=costs[subsets.index(subset)]
+            covered |= subset
+    print("NUMBER OF VISITED NODES: ",len(visited))
+    print("w: ",sum(len(_) for _ in solution))
+    return solution,cost
 </code></pre>
 
 ## Explanation
@@ -88,3 +109,14 @@ I used the pseudo code of the Breadth First, but applying it to the variables I 
 					insert u in Q
 	return none
 </code></pre>
+
+# Future implementation: A Star 
+
+The basic idea is to run the best-first but adding a component, so I am not only taking in account my cost but also my estimated cost. Here at some point the cost become larger, so if I am using A* I start going down. It can be proven but it is complete and optimally efficient (always able to compute the better path expanding a minimum number of nodes). Is a best first.
+
+## Explanation
+
+Basically, with the actual price I have to consider an estimated price (which I estimate with a heuristic that has to be optimistic) which is the estimation of how far I have to go yet to reach a **goal state***
+![image](./img/astar.jpg)
+
+**Sources**: John Levine - A Star Searching, my notes.
