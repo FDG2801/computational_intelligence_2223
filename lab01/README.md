@@ -102,8 +102,8 @@ I used the pseudo code of the Breadth First, but applying it to the variables I 
 		t <- Q.pop()
 		if t is what i am looking for:
 			return t
-		for all nodes in G.unlivellosotto(t) do
-			u <- G.nonadicenti(t,e)
+		for all nodes in G.alevelabove(t) do
+			u <- G.notadjacent(t,e)
 			if u is not signed
 					sign u
 					insert u in Q
@@ -119,4 +119,28 @@ The basic idea is to run the best-first but adding a component, so I am not only
 Basically, with the actual price I have to consider an estimated price (which I estimate with a heuristic that has to be optimistic) which is the estimation of how far I have to go yet to reach a **goal state***
 ![image](./img/astar.jpg)
 
+## Possible pseudocode
+<pre><code>def aStarAlgorithm(universe,subsets,costs):
+    visited=[]
+    heuristic_costs=calculate_heuristic(subsets) #the heuristic function should be monotonic 
+    covered=set()
+    solution=[]
+    while covered!=elements:
+        subset = first(subsets,key=lambda s: len(s-covered))
+        #print(subset, " subset")
+        queue.append(subset)
+        is heuristic_costs[subset.index(subset)] <= cost[subset.index(subset)]+heuristic_costs[subset.index(subset)]?
+            yes:
+                visited.append(subset)
+                solution.append(subset)
+                cost+=heuristic_costs[subset.index(subset)]
+                covered |= subset
+            no:
+                try another path
+    print("NUMBER OF VISITED NODES: ",len(visited))
+    print("w: ",sum(len(_) for _ in solution))
+    return solution,cost
+</code></pre>
+
 **Sources**: John Levine - A Star Searching, my notes.
+**Insight**: https://medium.com/@nicholas.w.swift/easy-a-star-pathfinding-7e6689c7f7b2 
