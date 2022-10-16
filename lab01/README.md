@@ -1,6 +1,6 @@
-Author: Francesco Di Gangi
+Author: Francesco Di Gangi s301793
 
-Worked with: Giuseppe Atanasio, Alessio Carachino
+Worked with: Giuseppe Atanasio s300733, Alessio Carachino s296138
 
 # Understanding the problem: Set Covering
 Given a set of elements {1, 2, …, n} (called the universe) and a collection S of m sets whose union equals the universe, the set cover problem is to identify the smallest sub-collection of S whose union equals the universe. For example, consider the universe U = {1, 2, 3, 4, 5} and the collection of sets S = { {1, 2, 3}, {2, 4}, {3, 4}, {4, 5} }. Clearly the union of S is U. However, we can cover all of the elements with the following, smaller number of sets: { {1, 2, 3}, {4, 5} }. **(wikipedia.org)**
@@ -30,9 +30,9 @@ def greedy(N):
     all_lists=sorted(problem(N,seed=42),key=lambda 1:len(1))
     while goal != covered:
         x=all_lists.pop(0)
-        if not set(x) < covered: #sottoinsieme stretto
+        if not set(x) < covered: 
             solution.append(x)
-            covered |= set(x) #unione fra i due set e prende gli elementi distinti
+            covered |= set(x) 
     print(f"Greedy solution: {solution}")
 </code></pre>
 
