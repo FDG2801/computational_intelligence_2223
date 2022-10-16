@@ -83,17 +83,23 @@ In this search algorithm we start from the tree root and explore all nodes at th
     queue=[]
     visited=[]
     while covered!=elements:
-        subset = max(subsets,key=lambda s: len(s-covered))
+        #subset = max(subsets,key=lambda s: len(s))
+        #all_lists = sorted(problem(N, seed=42), key=lambda l: len(l))
+        for subset in subsets:
         #print(subset, " subset")
-        queue.append(subset)
-        x=queue.pop()
-        if x not in visited:
-            visited.append(subset)
-            solution.append(subset)
-            cost+=costs[subsets.index(subset)]
-            covered |= subset
-    print("NUMBER OF VISITED NODES: ",len(visited))
-    print("w: ",sum(len(_) for _ in solution))
+            if subset not in queue:
+                queue.append(subset)
+                #root
+                if(cost==0):
+                    cost=cost+1
+                x=queue.pop()
+                if x not in visited:
+                    visited.append(subset)
+                    solution.append(subset)
+                    cost+=1
+                    covered |= subset
+    print("NUMBER OF VISITED NODES: ",len(visited),"\n")
+    print("w: ",sum(len(_) for _ in solution),"\n")
     return solution,cost
 </code></pre>
 
