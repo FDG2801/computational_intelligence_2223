@@ -155,4 +155,9 @@ Basically, with the actual price I have to consider an estimated price (which I 
 
 **Sources**: John Levine - A Star Searching, my notes.
 
-**Insight**: https://medium.com/@nicholas.w.swift/easy-a-star-pathfinding-7e6689c7f7b2 
+**Insight**: https://medium.com/@nicholas.w.swift/easy-a-star-pathfinding-7e6689c7f7b2
+
+# Next steps
+
+I will try to implement the A* Search and try to improve my Greedy and my Breadth First.
+
