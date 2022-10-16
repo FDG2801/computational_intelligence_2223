@@ -1,4 +1,7 @@
-Author: Francesco Di Gangi, Giuseppe Atanasio, Alessio Carachino
+Author: Francesco Di Gangi
+
+Worked with: Giuseppe Atanasio, Alessio Carachino
+
 # Understanding the problem: Set Covering
 Given a set of elements {1, 2, …, n} (called the universe) and a collection S of m sets whose union equals the universe, the set cover problem is to identify the smallest sub-collection of S whose union equals the universe. For example, consider the universe U = {1, 2, 3, 4, 5} and the collection of sets S = { {1, 2, 3}, {2, 4}, {3, 4}, {4, 5} }. Clearly the union of S is U. However, we can cover all of the elements with the following, smaller number of sets: { {1, 2, 3}, {4, 5} }. **(wikipedia.org)**
 
