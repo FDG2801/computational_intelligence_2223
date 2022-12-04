@@ -8,7 +8,7 @@ Create four different agents for the game `Nim`, you can find the full descripti
 
 ## **Task 3.1**
 
-The hardcoded strategy tries to exploit the number of object we could take depending on the number of `active_rows` left.
+The hardcoded strategy tries to exploit the number of object we could take depending on the number of `active_rows` left. 
 It is more of a late game oriented and it can easily loses versus early game strategy (check `nim-sum` based strategies).
 
 Here is the workflow of the algorithm:
@@ -59,6 +59,6 @@ These results are calculated over 100 games on average.
 
 # **Collaborators**
 - s296138 Carachino Alessio
-- s301665 Francesco Sorrentino
-- s301793 Francesco Di Gangi
+- s301665 Francesco Sorrentino,
+- s301793 Francesco Di Gangi,
 - s300733 Giuseppe Atanasiogi
