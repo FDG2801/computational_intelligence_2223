@@ -68,7 +68,7 @@ def minimax(currentpos,depth,maximizingplayer):
 There are few main solutions:
 - `possible_new_states`: understand the next state
 - `evaluate`: understand if the game is over
-- `best_move`: calculate the best move in terms of scores
+- `possible_moves`: calculate all the moves for the program
 
 Theory and part of the code: https://realpython.com/python-minimax-nim/#lose-the-game-of-nim-against-a-python-minimax-player
 
