@@ -8,11 +8,7 @@ Create four different agents for the game `Nim`, you can find the full descripti
 
 ## **Task 3.1**
 
-<<<<<<< HEAD
 The hardcoded strategy tries to exploit the number of object we could take depending on the number of `active_rows` left. 
-=======
-The hardcoded strategy tries to exploit the number of object we could take depending on the number of `active_rows` left.
->>>>>>> 1c2ecaa58e1bd68983500eda2af9511b7d86a3e7
 It is more of a late game oriented and it can easily loses versus early game strategy (check `nim-sum` based strategies).
 
 Here is the workflow of the algorithm:
@@ -46,6 +42,39 @@ The two branches of this strategy exploit the hard-coded strategy in `Task 3.1` 
 In the end it can achieves 100% winrate over 100 games versus the `pure_random`, and the average win rate is 95%.
 It doesn't beat the `optimal_strategy` and that makes sense because we don't exploit `xor` operations or `nim-sum`.
 
+## **Task 3.3**
+
+Behind the implementation of the `nim` with `minmax` there is the basic structure of the algorithm `minmax`:
+
+```
+def minimax(currentpos,depth,maximizingplayer):
+    if depth==0:
+        return currentpos
+    if maximizingplayer: #we want to get the max
+        maxEval=-infinity
+        for each child of position
+            eval=minimax(child,depth-1,false)
+            maxEval=max(maxEval,eval)
+        return maxEval
+
+    else
+        minEval=+infinity
+        for each child of position
+            eval=minimax(minEval,eval)
+            minEval=min(minEval,eval)
+        return minEval
+```
+
+There are few main solutions:
+- `possible_new_states`: understand the next state
+- `evaluate`: understand if the game is over
+- `best_move`: calculate the best move in terms of scores
+
+Theory: https://realpython.com/python-minimax-nim/#lose-the-game-of-nim-against-a-python-minimax-player
+
+
+
+
 # **Results**
 
 These results are calculated over 100 games on average.
@@ -63,12 +92,7 @@ These results are calculated over 100 games on average.
 
 # **Collaborators**
 - s296138 Carachino Alessio
-<<<<<<< HEAD
 - s301665 Francesco Sorrentino,
 - s301793 Francesco Di Gangi,
 - s300733 Giuseppe Atanasiogi
-=======
-- s301665 Francesco Sorrentino
-- s301793 Francesco Di Gangi
-- s300733 Giuseppe Atanasio
->>>>>>> 1c2ecaa58e1bd68983500eda2af9511b7d86a3e7
+
