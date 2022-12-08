@@ -70,7 +70,36 @@ There are few main solutions:
 - `evaluate`: understand if the game is over
 - `possible_moves`: calculate all the moves for the program
 
+### **Alpha Beta Pruning**
+
+Basically you consider branches from left to right and sto exploring subtrees once the minimax score of a node is decided. In this way the game become much smaller. 
+
+Alpha-beta pruning is a search algorithm that seeks to decrease the number of nodes that are evaluated by the minmax algorithm. 
+
+To implement the algorithm we refactored the `minimax()` function and add a criterion to the to know when we can stop exploring:
+
+- `alpha`: will represent the minimum score that the maximizing player is ensured.
+- `beta`: will represent the maximum score that the minimizing player is ensured.
+
+```
+if beta < alpha: stop exploring -> means that the minimax has already found a better option
+```
+
+This is implemented with an explicit `for` loop. The scores of child nodes are in the `scores` variable. Also, each `minimax()` iteration, `alpha` and `beta` are changed:
+
+```
+if is_maximizing:
+            alpha = max(alpha, score)
+        else:
+            beta = min(beta, score)
+```
+
+Note that this is only optimization and does not change the output of the minmax algorithm, so the results are the same.
+
+
 Theory and part of the code: https://realpython.com/python-minimax-nim/#lose-the-game-of-nim-against-a-python-minimax-player
+
+Theory about ALpha-beta pruning: https://en.wikipedia.org/wiki/Alpha%E2%80%93beta_pruning
 
 
 
@@ -94,5 +123,5 @@ These results are calculated over 100 games on average.
 - s296138 Carachino Alessio
 - s301665 Francesco Sorrentino,
 - s301793 Francesco Di Gangi,
-- s300733 Giuseppe Atanasiogi
+- s300733 Giuseppe Atanasio
 
