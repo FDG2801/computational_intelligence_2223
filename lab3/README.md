@@ -70,7 +70,7 @@ There are few main solutions:
 - `evaluate`: understand if the game is over
 - `best_move`: calculate the best move in terms of scores
 
-Theory: https://realpython.com/python-minimax-nim/#lose-the-game-of-nim-against-a-python-minimax-player
+Theory and part of the code: https://realpython.com/python-minimax-nim/#lose-the-game-of-nim-against-a-python-minimax-player
 
 
 
