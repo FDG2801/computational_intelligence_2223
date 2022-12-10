@@ -94,8 +94,16 @@ if is_maximizing:
             beta = min(beta, score)
 ```
 
-Note that this is only optimization and does not change the output of the minmax algorithm, so the results are the same.
+Note that this is only optimization and does not change the output of the minmax algorithm, so the results are the same. We can also see that the execution time is better with the alpha-beta pruning.
 
+| **Alpha**|**Beta**|**Time**|
+|-----|------|----|
+|-1|1|0.08599638938903809|
+|-0.5|1|0.033998727798461914 |
+|-0.5|0.5|0.06699728965759277 |
+|-1|0.5|0.053972721099853516 |
+
+In the minmax strategy **player1** always wins.
 
 Theory and part of the code: https://realpython.com/python-minimax-nim/#lose-the-game-of-nim-against-a-python-minimax-player
 
@@ -117,6 +125,7 @@ These results are calculated over 100 games on average.
 | strategy_1     | gabriele                  | 100% |
 | strategy_1     | pure random                  | 97% |
 | strategy_1 | strategy_0 | 80% |
+
 
 
 # **Collaborators**
