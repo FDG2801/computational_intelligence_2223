@@ -1,11 +1,14 @@
 import copy
 from collections import namedtuple
+from typing import Tuple
+
 from tqdm import tqdm
 import random
 from math import ceil
 from nim_utils import play_n_matches
 from task1_lib import gabriele, pure_random
-from nimply import Nimply, Nim, cook_status_t2
+from nimply import Nimply, Nim, cook_status_t2, sum_with_op
+from operator import xor, and_, or_
 
 Individual = namedtuple("Individual", ["genome", "fitness"])
 
@@ -110,14 +113,39 @@ def strategy_1(state: Nim, genome):
     return Nimply(row, num_objects)
 
 
+def strategy_2(state: Nim, genome):
+    cooked = cook_status_t2(state)
+    alpha = genome["alpha"]
+    beta = genome["beta"]
+    gamma = genome["gamma"]
+    perc = genome["percentage"]
+    max_e = state.rows[cooked["longest_row"]]
+    op = random.choices([and_, or_, xor], k=1, weights=[alpha, beta, gamma])[0]
+    possible_moves = sorted(cooked["possible_moves"], key=lambda i: abs((i[1] / max_e) - perc))
+
+    count = 2*cooked["active_rows_number"]
+    for _ in range(count):
+        ply = possible_moves.pop()
+        if count == 0:
+            break
+        tmp = copy.deepcopy(state)
+        tmp.nimming(ply)
+        if sum_with_op(tmp, op) == 0 or len(possible_moves) == 0:
+            return ply
+
+    return ply
+
+
 strategy_ga = strategy_0
 
 
-def w(genome: dict) -> tuple[float, float]:
+def w(genome: dict):
     wr1 = play_n_games(genome, gabriele)
     wr2 = play_n_games(genome, pure_random)
-    return (wr1, wr2)
-    #return 0.5*wr1 + 0.5*wr2
+    if strategy_ga.__name__ == 'strategy_2':
+        return 0.5 * wr1 + 0.5 * wr2
+    else:
+        return tuple((wr1, wr2))
 
 
 def play_n_games(genome, strategy, opp_genome=None):
@@ -170,7 +198,11 @@ def generate_population(genome_parameters):
 
 def evolve(INITIAL_POPULATION):
     POPULATION = INITIAL_POPULATION
-    best = Individual(dict(alpha=0.5, beta=0.5, gamma=0.5, delta=0.5), (0, 0))
+    if strategy_ga.__name__ == 'strategy_2':
+        best = Individual(dict(alpha=0.5, beta=0.5, gamma=0.5, delta=0.5), 0)
+    else:
+        best = Individual(dict(alpha=0.5, beta=0.5, gamma=0.5, delta=0.5), (0, 0))
+
 
     offspring_size = 20
     print("[info] - Evolving...")
@@ -196,7 +228,7 @@ def evolve(INITIAL_POPULATION):
         POPULATION = sorted(POPULATION, key=lambda i: i.fitness, reverse=True)[:POPULATION_SIZE]
         if POPULATION[0].fitness > best.fitness:
             best = copy.deepcopy(POPULATION[0])
-    #best = tournament2(POPULATION[:5])
+    # best = tournament2(POPULATION[:5])
     # print(f"best.fitness = {best.fitness}")
     # print(f"avg.fitness = {sum(i.fitness for i in POPULATION)/len(POPULATION)}")
     print(f"[info] - Best genome found is {best.genome} with fitness: {best.fitness}")
