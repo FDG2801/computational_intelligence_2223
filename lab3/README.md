@@ -1,4 +1,4 @@
-# Lab 3 - Alessio Carachino
+# Lab 3 - Francesco Di Gangi
 
 You can find the solution in the `taskN_lib` for each task.
 
